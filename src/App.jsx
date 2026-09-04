@@ -1,11 +1,8 @@
-import { Badge } from "./components/ui/badge";
+import { RouterProvider } from "react-router";
+import { router } from "./router/routes";
 
 const App = () => {
-    return (
-        <div className="flex gap-4 p-5">
-            <Badge variant="outline">test</Badge>
-        </div>
-    );
+    return <RouterProvider router={router} />;
 };
 
 export default App;
