@@ -1,9 +1,13 @@
 import { Outlet } from "react-router";
+import Header from "../Header";
 
 const AppLayout = () => {
     return (
-        <div>
-            <Outlet />
+        <div className="min-h-dvh bg-background text-foreground flex flex-col">
+            <Header />
+            <main className="flex-1">
+                <Outlet />
+            </main>
         </div>
     );
 };
