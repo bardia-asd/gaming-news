@@ -1,3 +1,309 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------
+    Design Tokens
+--------------------------------------------------------------- */
+@theme inline {
+    /* Base Colors */
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-subtle-foreground: var(--subtle-foreground);
+
+    /* Container Colors */
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-surface: var(--surface);
+    --color-elevated: var(--elevated);
+
+    /* Borders and Inputs */
+    --color-border: var(--border);
+    --color-input: var(--input);
+
+    /* Primary Colors */
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary-hover: var(--primary-hover);
+    --color-primary-active: var(--primary-active);
+    --color-primary-soft: var(--primary-soft);
+    --color-primary-border: var(--primary-border);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-ring: var(--ring);
+
+    /* Status Colors */
+    --color-success: var(--success);
+    --color-success-foreground: var(--success-foreground);
+    --color-warning: var(--warning);
+    --color-warning-foreground: var(--warning-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-info: var(--info);
+    --color-info-foreground: var(--info-foreground);
+
+    /* Content Type Badges */
+    --color-badge-review: var(--badge-review);
+    --color-badge-review-foreground: var(--badge-review-foreground);
+    --color-badge-review-soft: var(--badge-review-soft);
+
+    --color-badge-news: var(--badge-news);
+    --color-badge-news-foreground: var(--badge-news-foreground);
+    --color-badge-news-soft: var(--badge-news-soft);
+
+    --color-badge-guide: var(--badge-guide);
+    --color-badge-guide-foreground: var(--badge-guide-foreground);
+    --color-badge-guide-soft: var(--badge-guide-soft);
+
+    --color-badge-esports: var(--badge-esports);
+    --color-badge-esports-foreground: var(--badge-esports-foreground);
+    --color-badge-esports-soft: var(--badge-esports-soft);
+
+    --color-badge-opinion: var(--badge-opinion);
+    --color-badge-opinion-foreground: var(--badge-opinion-foreground);
+    --color-badge-opinion-soft: var(--badge-opinion-soft);
+
+    --color-badge-deal: var(--badge-deal);
+    --color-badge-deal-foreground: var(--badge-deal-foreground);
+    --color-badge-deal-soft: var(--badge-deal-soft);
+
+    /* Review Score Colors */
+    --color-score-excellent: var(--score-excellent);
+    --color-score-good: var(--score-good);
+    --color-score-mixed: var(--score-mixed);
+    --color-score-poor: var(--score-poor);
+    --color-score-foreground: var(--score-foreground);
+
+    /* Platform tags */
+    --color-platform-pc: var(--platform-pc);
+    --color-platform-playstation: var(--platform-playstation);
+    --color-platform-xbox: var(--platform-xbox);
+    --color-platform-switch: var(--platform-switch);
+    --color-platform-mobile: var(--platform-mobile);
+
+    /* Fonts */
+    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ---------------------------------------------------------------
+    Light Theme
+--------------------------------------------------------------- */
+:root {
+    /* Base Colors */
+    --background: oklch(0.965 0.008 250);
+    --foreground: oklch(0.2 0.025 258);
+    --secondary: oklch(0.935 0.012 250);
+    --secondary-foreground: oklch(0.2 0.025 258);
+    --muted: oklch(0.935 0.012 250);
+    --muted-foreground: oklch(0.45 0.025 258);
+    --subtle-foreground: oklch(0.54 0.025 258);
+
+    /* Container Colors */
+    --card: oklch(0.995 0.004 250);
+    --card-foreground: oklch(0.2 0.025 258);
+    --popover: oklch(0.995 0.004 250);
+    --popover-foreground: oklch(0.2 0.025 258);
+    --surface: oklch(0.995 0.004 250);
+    --elevated: oklch(0.975 0.01 250);
+
+    /* Borders and Inputs */
+    --border: oklch(0.77 0.025 250 / 0.8);
+    --input: oklch(0.77 0.025 250 / 0.8);
+
+    /* Primary Colors */
+    --primary: oklch(0.58 0.17 220);
+    --primary-foreground: oklch(0.99 0.003 220);
+    --primary-hover: oklch(0.51 0.18 220);
+    --primary-active: color-mix(in oklab, var(--primary) 76%, #000000);
+    --primary-soft: oklch(0.58 0.17 220 / 0.12);
+    --primary-border: color-mix(in oklab, var(--primary) 26%, #ffffff);
+    --accent: var(--primary-soft);
+    --accent-foreground: var(--primary);
+    --ring: var(--primary);
+
+    /* Status Colors */
+    --success: #14855c;
+    --success-foreground: #ffffff;
+    --warning: #b0761b;
+    --warning-foreground: #ffffff;
+    --destructive: #c33a33;
+    --destructive-foreground: #ffffff;
+    --info: #2f6fd0;
+    --info-foreground: #ffffff;
+
+    /* Content Type Badges */
+    --badge-review: #7c3aed;
+    --badge-review-foreground: #ffffff;
+    --badge-review-soft: color-mix(in oklab, var(--badge-review) 12%, #ffffff);
+
+    --badge-news: var(--primary);
+    --badge-news-foreground: #ffffff;
+    --badge-news-soft: var(--primary-soft);
+
+    --badge-guide: #14855c;
+    --badge-guide-foreground: #ffffff;
+    --badge-guide-soft: color-mix(in oklab, var(--badge-guide) 12%, #ffffff);
+
+    --badge-esports: #d9711a;
+    --badge-esports-foreground: #ffffff;
+    --badge-esports-soft: color-mix(
+        in oklab,
+        var(--badge-esports) 12%,
+        #ffffff
+    );
+
+    --badge-opinion: #656a73;
+    --badge-opinion-foreground: #ffffff;
+    --badge-opinion-soft: color-mix(
+        in oklab,
+        var(--badge-opinion) 12%,
+        #ffffff
+    );
+
+    --badge-deal: #c33a33;
+    --badge-deal-foreground: #ffffff;
+    --badge-deal-soft: color-mix(in oklab, var(--badge-deal) 12%, #ffffff);
+
+    /* Review Score Colors (for scorecards, e.g. 0-10 or 0-100) */
+    --score-excellent: oklch(0.78 0.19 150); /* 9-10 / 80-100 */
+    --score-good: oklch(0.78 0.19 150); /* 7-8.9 / 60-79 */
+    --score-mixed: oklch(0.83 0.17 85); /* 5-6.9 / 40-59 */
+    --score-poor: oklch(0.68 0.2 27); /* below 5 / 40 */
+    --score-foreground: oklch(0.16 0.02 258);
+
+    /* Platform tags (optional, if you tag posts by platform) */
+    --platform-pc: #202228;
+    --platform-playstation: #0f5ba7;
+    --platform-xbox: #14855c;
+    --platform-switch: #c33a33;
+    --platform-mobile: #7c3aed;
+}
+
+/* ---------------------------------------------------------------
+    Dark Color Theme
+--------------------------------------------------------------- */
+.dark {
+    /* Base Colors */
+    --background: oklch(0.16 0.021 258);
+    --foreground: oklch(0.96 0.005 258);
+    --secondary: oklch(0.19 0.024 258);
+    --secondary-foreground: oklch(0.96 0.005 258);
+    --muted: oklch(0.19 0.024 258);
+    --muted-foreground: oklch(0.7 0.018 258);
+    --subtle-foreground: oklch(0.58 0.02 258);
+
+    /* Container Colors */
+    --card: oklch(0.235 0.026 258);
+    --card-foreground: oklch(0.96 0.005 258);
+    --popover: oklch(0.235 0.026 258);
+    --popover-foreground: oklch(0.96 0.005 258);
+    --surface: oklch(0.235 0.026 258);
+    --elevated: oklch(0.275 0.028 258);
+
+    /* Borders and Inputs */
+    --border: oklch(0.38 0.03 258 / 0.55);
+    --input: oklch(0.38 0.03 258 / 0.55);
+
+    /* Primary Colors */
+    --primary: oklch(0.78 0.16 205);
+    --primary-foreground: oklch(0.17 0.03 240);
+    --primary-hover: oklch(0.85 0.15 200);
+    --primary-active: color-mix(in oklab, var(--primary) 76%, #ffffff);
+    --primary-soft: oklch(0.78 0.16 205 / 0.14);
+    --primary-border: color-mix(in oklab, var(--primary) 30%, #14171d);
+    --accent: var(--primary-soft);
+    --accent-foreground: var(--primary);
+    --ring: var(--primary);
+
+    /* Status Colors */
+    --success: #2fb886;
+    --success-foreground: #001a10;
+    --warning: #d99b2b;
+    --warning-foreground: #221600;
+    --destructive: #e5675f;
+    --destructive-foreground: #200000;
+    --info: #5b93e0;
+    --info-foreground: #001024;
+
+    /* Content Type Badges */
+    --badge-review: #a78bfa;
+    --badge-review-foreground: #1a0f2e;
+    --badge-review-soft: color-mix(in oklab, var(--badge-review) 16%, #14171d);
+
+    --badge-news: var(--primary);
+    --badge-news-foreground: var(--primary-foreground);
+    --badge-news-soft: var(--primary-soft);
+
+    --badge-guide: #2fb886;
+    --badge-guide-foreground: #001a10;
+    --badge-guide-soft: color-mix(in oklab, var(--badge-guide) 16%, #14171d);
+
+    --badge-esports: #f0954a;
+    --badge-esports-foreground: #241000;
+    --badge-esports-soft: color-mix(
+        in oklab,
+        var(--badge-esports) 16%,
+        #14171d
+    );
+
+    --badge-opinion: #9199a6;
+    --badge-opinion-foreground: #14171d;
+    --badge-opinion-soft: color-mix(
+        in oklab,
+        var(--badge-opinion) 14%,
+        #14171d
+    );
+
+    --badge-deal: #e5675f;
+    --badge-deal-foreground: #200000;
+    --badge-deal-soft: color-mix(in oklab, var(--badge-deal) 16%, #14171d);
+
+    /* Review Score Colors */
+    --score-excellent: oklch(0.78 0.19 150);
+    --score-good: oklch(0.78 0.19 150);
+    --score-mixed: oklch(0.83 0.17 85);
+    --score-poor: oklch(0.68 0.2 27);
+    --score-foreground: oklch(0.16 0.02 258);
+
+    /* Platform tags */
+    --platform-pc: #eceef1;
+    --platform-playstation: #5b93e0;
+    --platform-xbox: #2fb886;
+    --platform-switch: #e5675f;
+    --platform-mobile: #a78bfa;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background-color: var(--background);
+        color: var(--foreground);
+        font-family: var(--font-sans);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: color-mix(
+            in oklab,
+            var(--muted-foreground) 35%,
+            transparent
+        );
+        border-radius: 9999px;
+        border: 3px solid transparent;
+        background-clip: content-box;
+    }
+}

@@ -1,5 +1,11 @@
+import { Badge } from "./components/ui/badge";
+
 const App = () => {
-    return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+    return (
+        <div className="flex gap-4 p-5">
+            <Badge variant="outline">test</Badge>
+        </div>
+    );
 };
 
 export default App;
