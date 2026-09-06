@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-const LatestNewsSkeleton = () => {
+const FeaturedNewsSkeleton = () => {
     return (
         <section>
             <div className="container mx-auto px-4 sm:px-6 py-12">
@@ -65,4 +65,4 @@ const LatestNewsSkeleton = () => {
     );
 };
 
-export default LatestNewsSkeleton;
+export default FeaturedNewsSkeleton;

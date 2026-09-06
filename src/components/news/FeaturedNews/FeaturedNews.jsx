@@ -5,16 +5,15 @@ import { ArrowUpRight } from "lucide-react";
 
 import {
     selectLatestNews,
-    selectLatestNewsError,
     selectLatestNewsStatus,
 } from "@/features/news/newsSelectors";
 import { fetchLatestNews } from "@/features/news/newsSlice";
 
 import { formatArticleDate } from "@/utils/formatter";
 import TagBadge from "@/components/articles/TagBadge";
-import LatestNewsSkeleton from "./LatestNewsSkeleton";
+import FeaturedNewsSkeleton from "./FeaturedNewsSkeleton";
 
-const LatestNews = () => {
+const FeaturedNews = () => {
     // Retrieve the latest news data and its request state from Redux.
     const latestNews = useSelector(selectLatestNews);
     const status = useSelector(selectLatestNewsStatus);
@@ -28,7 +27,7 @@ const LatestNews = () => {
 
     // Display the skeleton while the latest news is being fetched.
     if (status === "idle" || status === "loading")
-        return <LatestNewsSkeleton />;
+        return <FeaturedNewsSkeleton />;
 
     return (
         <section>
@@ -154,4 +153,4 @@ const LatestNews = () => {
     );
 };
 
-export default LatestNews;
+export default FeaturedNews;
