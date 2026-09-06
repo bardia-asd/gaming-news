@@ -50,7 +50,7 @@ export const badgeVariants = cva(
  */
 const Badge = ({ children, variant = "default", className = "", ...props }) => {
     return (
-        <div
+        <span
             className={cn(
                 // Apply the selected variant styles and custom classes
                 badgeVariants({ variant }),
@@ -58,7 +58,7 @@ const Badge = ({ children, variant = "default", className = "", ...props }) => {
             )}
             {...props}>
             {children}
-        </div>
+        </span>
     );
 };
 

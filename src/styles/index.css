@@ -87,6 +87,18 @@
     --color-platform-switch: var(--platform-switch);
     --color-platform-mobile: var(--platform-mobile);
 
+    /* Tag Colors */
+    --color-tag-esports: var(--tag-esports);
+    --color-tag-rpg: var(--tag-rpg);
+    --color-tag-nintendo-switch: var(--tag-nintendo-switch);
+    --color-tag-dlc: var(--tag-dlc);
+    --color-tag-pc: var(--tag-pc);
+    --color-tag-playstation: var(--tag-playstation);
+    --color-tag-shooter: var(--tag-shooter);
+    --color-tag-industry: var(--tag-industry);
+    --color-tag-indie: var(--tag-indie);
+    --color-tag-xbox: var(--tag-xbox);
+
     /* Fonts */
     --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
@@ -183,6 +195,18 @@
     --platform-xbox: #14855c;
     --platform-switch: #c33a33;
     --platform-mobile: #7c3aed;
+
+    /* Tag Colors */
+    --tag-esports: #d9711a;
+    --tag-rpg: #7c3aed;
+    --tag-nintendo-switch: #c33a33;
+    --tag-dlc: #2f6fd0;
+    --tag-pc: #202228;
+    --tag-playstation: #0f5ba7;
+    --tag-shooter: #c33a33;
+    --tag-industry: #656a73;
+    --tag-indie: #14855c;
+    --tag-xbox: #107c10;
 }
 
 /* ---------------------------------------------------------------
@@ -277,6 +301,18 @@
     --platform-xbox: #2fb886;
     --platform-switch: #e5675f;
     --platform-mobile: #a78bfa;
+
+    /* Tag Colors */
+    --tag-esports: #f0954a;
+    --tag-rpg: #a78bfa;
+    --tag-nintendo-switch: #e5675f;
+    --tag-dlc: #5b93e0;
+    --tag-pc: #eceef1;
+    --tag-playstation: #5b93e0;
+    --tag-shooter: #e5675f;
+    --tag-industry: #9199a6;
+    --tag-indie: #2fb886;
+    --tag-xbox: #4ade80;
 }
 
 @layer base {
