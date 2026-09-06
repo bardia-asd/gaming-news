@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import FeaturedNews from "@/components/news/FeaturedNews";
+import LatestNews from "@/components/news/LatestNews";
 
 const Home = () => {
     return (
@@ -22,7 +23,9 @@ const Home = () => {
                 </div>
             </div>
 
-            <FeaturedNews />
+            {/* <FeaturedNews /> */}
+
+            <LatestNews />
         </>
     );
 };
