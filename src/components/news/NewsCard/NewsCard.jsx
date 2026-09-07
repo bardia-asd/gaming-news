@@ -24,6 +24,7 @@ const NewsCard = ({ article }) => {
                         <img
                             src={article.cover_image_url}
                             alt={article.title}
+                            loading="lazy"
                             className="size-full object-cover group-hover:scale-105 transition-transform duration-400"
                         />
                     </div>

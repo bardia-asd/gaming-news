@@ -33,13 +33,15 @@ const LatestNewsCarousel = () => {
     const isLoading = status === "idle" || status === "loading";
 
     return (
-        <div className="relative px-12">
+        <div className="relative lg:px-12">
             <Swiper
                 onSwiper={(swiper) => (swiperRef.current = swiper)}
-                slidesPerView="auto"
+                slidesPerView={1.1}
                 breakpoints={{
-                    640: { slidesPerView: 3 },
-                    1024: { slidesPerView: 4 },
+                    425: { slidesPerView: 1.6 },
+                    640: { slidesPerView: 2.2 },
+                    1024: { slidesPerView: 3.2 },
+                    1440: { slidesPerView: 4 },
                 }}
                 spaceBetween={20}>
                 {/* Render skeleton cards while the news data is loading. */}
@@ -57,7 +59,7 @@ const LatestNewsCarousel = () => {
             </Swiper>
 
             {/* External controls for navigating between carousel slides. */}
-            <div className="absolute inset-0 flex items-center justify-between">
+            <div className="absolute inset-0 hidden lg:flex items-center justify-between">
                 <Button
                     variant="outline"
                     size="icon"
