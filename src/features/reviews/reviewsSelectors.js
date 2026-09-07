@@ -1,0 +1,9 @@
+export const selectReviews = (state) => state.reviews.reviews;
+export const selectReviewsStatus = (state) => state.reviews.reviewsStatus;
+export const selectReviewsError = (state) => state.reviews.reviewsError;
+
+export const selectLatestReviews = (state) => state.reviews.latestReviews;
+export const selectLatestReviewsStatus = (state) =>
+    state.reviews.latestReviewsStatus;
+export const selectLatestReviewsError = (state) =>
+    state.reviews.latestReviewsError;

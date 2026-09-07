@@ -17,7 +17,7 @@ const TrendingNewsCard = ({ news, index }) => {
                         {String(index + 1).padStart(2, "0")}
                     </span>
 
-                    <div className="rounded-lg overflow-hidden w-24 h-auto aspect-16/10">
+                    <div className="shrink-0 rounded-lg overflow-hidden w-24 h-auto aspect-16/10">
                         <img
                             src={news.cover_image_url}
                             alt={news.title}
@@ -27,13 +27,13 @@ const TrendingNewsCard = ({ news, index }) => {
                     </div>
 
                     <div className="flex-1 flex flex-col gap-2">
-                        <div className="flex gap-2">
+                        <div className="flex flex-wrap gap-2">
                             {news.article_tags.map(({ tags }) => (
                                 <TagBadge key={tags.id} tag={tags} />
                             ))}
                         </div>
 
-                        <CardTitle className="tracking-tight font-normal truncate">
+                        <CardTitle className="tracking-tight font-normal line-clamp-1">
                             {news.title}
                         </CardTitle>
 

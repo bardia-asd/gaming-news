@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import FeaturedNews from "@/components/news/FeaturedNews";
 import LatestNews from "@/components/news/LatestNews";
 import TrendingNews from "@/components/trending";
+import LatestReviews from "@/components/reviews/LatestReviews";
 
 const Home = () => {
     return (
@@ -30,6 +31,10 @@ const Home = () => {
             <LatestNews />
 
             <TrendingNews />
+            <div className="py-10"></div>
+
+            <LatestReviews />
+            <div className="py-10"></div>
         </>
     );
 };
