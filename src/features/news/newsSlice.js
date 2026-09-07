@@ -3,10 +3,26 @@ import { supabase } from "@/services/supabase";
 
 const NEWS_SELECT = "*, article_tags(tags(*)), article_games(*)";
 
+export const fetchFeaturedNews = createAsyncThunk(
+    "news/fetchFeaturedNews",
+    async (_, { rejectWithValue }) => {
+        const { data, error } = await supabase
+            .from("articles")
+            .select(NEWS_SELECT)
+            .eq("is_featured", true)
+            .order("published_at", { ascending: false })
+            .limit(3);
+
+        if (error) return rejectWithValue(error.message);
+
+        return data;
+    },
+);
+
 export const fetchLatestNews = createAsyncThunk(
     "news/fetchLatestNews",
     async (limit = 5, { rejectWithValue }) => {
-        let { data: articles, error } = await supabase
+        const { data: articles, error } = await supabase
             .from("articles")
             .select(NEWS_SELECT)
             .eq("category", "news")
@@ -20,6 +36,10 @@ export const fetchLatestNews = createAsyncThunk(
 );
 
 const initialState = {
+    featuredNews: [],
+    featuredNewsStatus: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
+    featuredNewsError: null,
+
     latestNews: [],
     latestNewsStatus: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
     latestNewsError: null,
@@ -27,10 +47,22 @@ const initialState = {
 
 const newsSlice = createSlice({
     name: "news",
-    initialState: initialState,
+    initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
+            .addCase(fetchFeaturedNews.pending, (state) => {
+                state.featuredNewsStatus = "loading";
+                state.featuredNewsError = null;
+            })
+            .addCase(fetchFeaturedNews.fulfilled, (state, action) => {
+                state.featuredNewsStatus = "succeeded";
+                state.featuredNews = action.payload;
+            })
+            .addCase(fetchFeaturedNews.rejected, (state, action) => {
+                state.featuredNewsStatus = "failed";
+                state.featuredNewsError = action.payload;
+            })
             .addCase(fetchLatestNews.pending, (state) => {
                 state.latestNewsStatus = "loading";
                 state.latestNewsError = null;

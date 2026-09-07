@@ -4,44 +4,44 @@ import { useDispatch, useSelector } from "react-redux";
 import { ArrowUpRight } from "lucide-react";
 
 import {
-    selectLatestNews,
-    selectLatestNewsStatus,
+    selectFeaturedNews,
+    selectFeaturedNewsStatus,
 } from "@/features/news/newsSelectors";
-import { fetchLatestNews } from "@/features/news/newsSlice";
+import { fetchFeaturedNews } from "@/features/news/newsSlice";
 
 import { formatArticleDate } from "@/utils/formatter";
 import TagBadge from "@/components/articles/TagBadge";
 import FeaturedNewsSkeleton from "./FeaturedNewsSkeleton";
 
 const FeaturedNews = () => {
-    // Retrieve the latest news data and its request state from Redux.
-    const latestNews = useSelector(selectLatestNews);
-    const status = useSelector(selectLatestNewsStatus);
+    // Retrieve the featured news data and its request state from Redux.
+    const featuredNews = useSelector(selectFeaturedNews);
+    const status = useSelector(selectFeaturedNewsStatus);
 
     const dispatch = useDispatch();
 
-    // Fetch the three most recent news articles when the component mounts.
+    // Fetch the three featured news articles when the component mounts.
     useEffect(() => {
-        dispatch(fetchLatestNews(3));
+        dispatch(fetchFeaturedNews());
     }, [dispatch]);
 
-    // Display the skeleton while the latest news is being fetched.
+    // Display the skeleton while the featured news is being fetched.
     if (status === "idle" || status === "loading")
         return <FeaturedNewsSkeleton />;
 
     return (
         <section>
             <div className="container mx-auto px-4 sm:px-6 py-12">
-                {/* Display the latest article as the featured story alongside two secondary stories. */}
+                {/* Display the first article as the featured story alongside two secondary stories. */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
                     {/* Featured article. */}
                     <div className="relative min-h-96 lg:min-h-112 rounded-2xl overflow-hidden lg:col-span-2">
                         <Link
-                            to={`/news/${latestNews[0]?.slug}`}
+                            to={`/news/${featuredNews[0]?.slug}`}
                             className="group block size-full">
                             <img
-                                src={latestNews[0]?.cover_image_url}
-                                alt={latestNews[0]?.title}
+                                src={featuredNews[0]?.cover_image_url}
+                                alt={featuredNews[0]?.title}
                                 className="absolute inset-0 size-full object-cover group-hover:scale-105 transition-transform duration-500"
                                 loading="lazy"
                             />
@@ -50,7 +50,7 @@ const FeaturedNews = () => {
 
                             <div className="relative z-10 flex flex-col h-full justify-end gap-3 p-6">
                                 <div className="flex items-center gap-2">
-                                    {latestNews[0]?.article_tags.map(
+                                    {featuredNews[0]?.article_tags.map(
                                         ({ tags }) => (
                                             <TagBadge
                                                 key={tags.id}
@@ -61,20 +61,19 @@ const FeaturedNews = () => {
                                 </div>
 
                                 <h1 className="text-white text-2xl lg:text-4xl line-clamp-2 font-medium">
-                                    {latestNews[0]?.title}
+                                    {featuredNews[0]?.title}
                                 </h1>
 
                                 <p className="text-slate-200 line-clamp-2 max-w-lg">
-                                    {latestNews[0]?.excerpt}
+                                    {featuredNews[0]?.excerpt}
                                 </p>
 
                                 <div className="flex flex-wrap items-center gap-2 text-xs text-gray-300">
-                                    <span>{latestNews[0]?.author}</span>
+                                    <span>{featuredNews[0]?.author}</span>
                                     <span>•</span>
-
                                     <span>
                                         {formatArticleDate(
-                                            latestNews[0]?.published_at,
+                                            featuredNews[0]?.published_at,
                                         )}
                                     </span>
 
@@ -91,11 +90,11 @@ const FeaturedNews = () => {
                     <div className="grid grid-rows-2 gap-5">
                         <div className="relative min-h-50 rounded-2xl overflow-hidden">
                             <Link
-                                to={`/news/${latestNews[1]?.slug}`}
+                                to={`/news/${featuredNews[1]?.slug}`}
                                 className="group block size-full">
                                 <img
-                                    src={latestNews[1]?.cover_image_url}
-                                    alt={latestNews[1]?.title}
+                                    src={featuredNews[1]?.cover_image_url}
+                                    alt={featuredNews[1]?.title}
                                     className="absolute inset-0 size-full object-cover group-hover:scale-105 transition-transform duration-500"
                                     loading="lazy"
                                 />
@@ -103,14 +102,14 @@ const FeaturedNews = () => {
                                 <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
 
                                 <div className="relative z-10 flex flex-col h-full justify-end gap-3 p-6">
-                                    <h1 className="text-white line-clamp-2 font-medium">
-                                        {latestNews[1]?.title}
-                                    </h1>
+                                    <h2 className="text-white line-clamp-2 font-medium">
+                                        {featuredNews[1]?.title}
+                                    </h2>
 
                                     <div className="flex flex-wrap items-center gap-2 text-xs text-gray-300">
                                         <span>
                                             {formatArticleDate(
-                                                latestNews[1]?.published_at,
+                                                featuredNews[1]?.published_at,
                                             )}
                                         </span>
                                     </div>
@@ -120,11 +119,11 @@ const FeaturedNews = () => {
 
                         <div className="relative min-h-50 rounded-2xl overflow-hidden">
                             <Link
-                                to={`/news/${latestNews[2]?.slug}`}
+                                to={`/news/${featuredNews[2]?.slug}`}
                                 className="group block size-full">
                                 <img
-                                    src={latestNews[2]?.cover_image_url}
-                                    alt={latestNews[2]?.title}
+                                    src={featuredNews[2]?.cover_image_url}
+                                    alt={featuredNews[2]?.title}
                                     className="absolute inset-0 size-full object-cover group-hover:scale-105 transition-transform duration-500"
                                     loading="lazy"
                                 />
@@ -132,14 +131,14 @@ const FeaturedNews = () => {
                                 <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
 
                                 <div className="relative z-10 flex flex-col h-full justify-end gap-3 p-6">
-                                    <h1 className="text-white line-clamp-2 font-medium">
-                                        {latestNews[2]?.title}
-                                    </h1>
+                                    <h2 className="text-white line-clamp-2 font-medium">
+                                        {featuredNews[2]?.title}
+                                    </h2>
 
                                     <div className="flex flex-wrap items-center gap-2 text-xs text-gray-300">
                                         <span>
                                             {formatArticleDate(
-                                                latestNews[2]?.published_at,
+                                                featuredNews[2]?.published_at,
                                             )}
                                         </span>
                                     </div>
