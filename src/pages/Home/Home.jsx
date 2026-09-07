@@ -1,6 +1,8 @@
 import { Badge } from "@/components/ui/badge";
+
 import FeaturedNews from "@/components/news/FeaturedNews";
 import LatestNews from "@/components/news/LatestNews";
+import TrendingNews from "@/components/trending";
 
 const Home = () => {
     return (
@@ -26,6 +28,8 @@ const Home = () => {
             <FeaturedNews />
 
             <LatestNews />
+
+            <TrendingNews />
         </>
     );
 };
