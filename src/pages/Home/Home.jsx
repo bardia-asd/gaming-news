@@ -4,6 +4,7 @@ import FeaturedNews from "@/components/news/FeaturedNews";
 import LatestNews from "@/components/news/LatestNews";
 import TrendingNews from "@/components/trending";
 import LatestReviews from "@/components/reviews/LatestReviews";
+import NewsLetter from "./components/NewsLetter";
 
 const Home = () => {
     return (
@@ -34,7 +35,8 @@ const Home = () => {
             <div className="py-10"></div>
 
             <LatestReviews />
-            <div className="py-10"></div>
+
+            <NewsLetter />
         </>
     );
 };
