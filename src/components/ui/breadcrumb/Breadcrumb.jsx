@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import PropTypes from "prop-types";
 import { Slot } from "@radix-ui/react-slot";
-import { cn } from "@/utils/cn";
+import { cn } from "@/utils/utils";
 import { MoreHorizontal } from "lucide-react";
 
 /**
