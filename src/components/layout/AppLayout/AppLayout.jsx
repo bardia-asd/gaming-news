@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import Header from "../Header";
 import Footer from "../Footer";
+import { Toaster } from "@/components/ui/toaster";
 
 const AppLayout = () => {
     return (
@@ -10,6 +11,8 @@ const AppLayout = () => {
                 <Outlet />
             </main>
             <Footer />
+
+            <Toaster />
         </div>
     );
 };

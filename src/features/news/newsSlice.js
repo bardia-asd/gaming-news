@@ -35,20 +35,46 @@ export const fetchLatestNews = createAsyncThunk(
     },
 );
 
+export const fetchNewsBySlug = createAsyncThunk(
+    "news/fetchNewsBySlug",
+    async (slug, { rejectWithValue }) => {
+        const { data, error } = await supabase
+            .from("articles")
+            .select(NEWS_SELECT)
+            .in("category", ["news", "trending"])
+            .eq("slug", slug)
+            .single();
+
+        if (error) return rejectWithValue(error.message);
+
+        return data;
+    },
+);
+
 const initialState = {
     featuredNews: [],
     featuredNewsStatus: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
     featuredNewsError: null,
 
     latestNews: [],
-    latestNewsStatus: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
+    latestNewsStatus: "idle",
     latestNewsError: null,
+
+    currentArticle: null,
+    currentArticleStatus: "idle",
+    currentArticleError: null,
 };
 
 const newsSlice = createSlice({
     name: "news",
     initialState,
-    reducers: {},
+    reducers: {
+        clearCurrentArticle(state) {
+            state.currentArticle = null;
+            state.currentArticleStatus = "idle";
+            state.currentArticleError = null;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchFeaturedNews.pending, (state) => {
@@ -63,6 +89,7 @@ const newsSlice = createSlice({
                 state.featuredNewsStatus = "failed";
                 state.featuredNewsError = action.payload;
             })
+
             .addCase(fetchLatestNews.pending, (state) => {
                 state.latestNewsStatus = "loading";
                 state.latestNewsError = null;
@@ -74,8 +101,22 @@ const newsSlice = createSlice({
             .addCase(fetchLatestNews.rejected, (state, action) => {
                 state.latestNewsStatus = "failed";
                 state.latestNewsError = action.payload;
+            })
+
+            .addCase(fetchNewsBySlug.pending, (state) => {
+                state.currentArticleStatus = "loading";
+                state.currentArticleError = null;
+            })
+            .addCase(fetchNewsBySlug.fulfilled, (state, action) => {
+                state.currentArticleStatus = "succeeded";
+                state.currentArticle = action.payload;
+            })
+            .addCase(fetchNewsBySlug.rejected, (state, action) => {
+                state.currentArticleStatus = "failed";
+                state.currentArticleError = action.payload;
             });
     },
 });
 
+export const { clearCurrentArticle } = newsSlice.actions;
 export default newsSlice.reducer;
