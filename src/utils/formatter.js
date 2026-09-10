@@ -25,3 +25,17 @@ export const formatArticleDate = (date) => {
         year: "numeric",
     }).format(articleDate);
 };
+
+export const formatGameReleaseDate = (date) => {
+    if (!date) return "";
+
+    const gameDate = new Date(date);
+
+    if (Number.isNaN(gameDate.getTime())) return "";
+
+    return new Intl.DateTimeFormat("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+    }).format(gameDate);
+};
