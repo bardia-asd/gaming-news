@@ -15,8 +15,4 @@ export const navItems = [
         label: "Games",
         href: "/games",
     },
-    {
-        label: "Categories",
-        href: "/categories",
-    },
 ];

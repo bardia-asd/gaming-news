@@ -7,3 +7,9 @@ export const selectLatestReviewsStatus = (state) =>
     state.reviews.latestReviewsStatus;
 export const selectLatestReviewsError = (state) =>
     state.reviews.latestReviewsError;
+
+export const selectCurrentReview = (state) => state.reviews.currentReview;
+export const selectCurrentReviewStatus = (state) =>
+    state.reviews.currentReviewStatus;
+export const selectCurrentReviewError = (state) =>
+    state.reviews.currentReviewError;

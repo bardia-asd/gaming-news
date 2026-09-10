@@ -39,6 +39,21 @@ export const fetchLatestReviews = createAsyncThunk(
     },
 );
 
+export const fetchReviewBySlug = createAsyncThunk(
+    "reviews/fetchReviewBySlug",
+    async (slug, { rejectWithValue }) => {
+        const { data, error } = await supabase
+            .from("articles")
+            .select(NEWS_SELECT)
+            .eq("category", "review")
+            .eq("slug", slug)
+            .single();
+
+        if (error) return rejectWithValue(error.message);
+        return data;
+    },
+);
+
 const initialState = {
     reviews: [],
     reviewsStatus: "idle",
@@ -47,12 +62,22 @@ const initialState = {
     latestReviews: [],
     latestReviewsStatus: "idle",
     latestReviewsError: null,
+
+    currentReview: [],
+    currentReviewStatus: "idle",
+    currentReviewError: null,
 };
 
 const reviewsSlice = createSlice({
     name: "reviews",
     initialState,
-    reducers: {},
+    reducers: {
+        clearCurrentReview(state) {
+            state.currentReview = null;
+            state.currentReviewStatus = "idle";
+            state.currentReviewError = null;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchReviews.pending, (state) => {
@@ -79,8 +104,22 @@ const reviewsSlice = createSlice({
             .addCase(fetchLatestReviews.rejected, (state, action) => {
                 state.latestReviewsStatus = "failed";
                 state.latestReviewsError = action.payload;
+            })
+
+            .addCase(fetchReviewBySlug.pending, (state) => {
+                state.currentReviewStatus = "loading";
+                state.currentReviewError = null;
+            })
+            .addCase(fetchReviewBySlug.fulfilled, (state, action) => {
+                state.currentReviewStatus = "succeeded";
+                state.currentReview = action.payload;
+            })
+            .addCase(fetchReviewBySlug.rejected, (state, action) => {
+                state.currentReviewStatus = "failed";
+                state.currentReviewError = action.payload;
             });
     },
 });
 
+export const { clearCurrentReview } = reviewsSlice.actions;
 export default reviewsSlice.reducer;
