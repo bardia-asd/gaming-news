@@ -24,6 +24,27 @@ export const fetchUpcomingGames = createAsyncThunk(
     },
 );
 
+export const fetchGameBySlug = createAsyncThunk(
+    "games/fetchGameBySlug",
+    async (slug, { rejectWithValue }) => {
+        try {
+            const res = await fetch(`${rawgUrl}/games/${slug}?key=${rawgKey}`);
+
+            if (!res.ok) {
+                return rejectWithValue("Failed to fetch game by slug");
+            }
+
+            const data = await res.json();
+
+            return data;
+        } catch (error) {
+            return rejectWithValue(
+                error.message || "Failed to fetch game by slug",
+            );
+        }
+    },
+);
+
 const initialState = {
     games: [],
     gamesStatus: "idle",
@@ -32,12 +53,22 @@ const initialState = {
     upcomingGames: [],
     upcomingGamesStatus: "idle",
     upcomingGamesError: null,
+
+    currentGame: null,
+    currentGameStatus: "idle",
+    currentGameError: null,
 };
 
 const gamesSlice = createSlice({
     name: "games",
     initialState,
-    reducers: {},
+    reducers: {
+        clearCurrentGame(state) {
+            state.currentGame = null;
+            state.currentGameStatus = "idle";
+            state.currentGameError = null;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchUpcomingGames.pending, (state) => {
@@ -51,8 +82,22 @@ const gamesSlice = createSlice({
             .addCase(fetchUpcomingGames.rejected, (state, action) => {
                 state.upcomingGamesStatus = "failed";
                 state.upcomingGamesError = action.payload;
+            })
+
+            .addCase(fetchGameBySlug.pending, (state) => {
+                state.currentGameStatus = "loading";
+                state.currentGameError = null;
+            })
+            .addCase(fetchGameBySlug.fulfilled, (state, action) => {
+                state.currentGameStatus = "succeeded";
+                state.currentGame = action.payload;
+            })
+            .addCase(fetchGameBySlug.rejected, (state, action) => {
+                state.currentGameStatus = "failed";
+                state.currentGameError = action.payload;
             });
     },
 });
 
+export const { clearCurrentGame } = gamesSlice.actions;
 export default gamesSlice.reducer;

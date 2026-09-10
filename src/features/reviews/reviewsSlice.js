@@ -63,7 +63,7 @@ const initialState = {
     latestReviewsStatus: "idle",
     latestReviewsError: null,
 
-    currentReview: [],
+    currentReview: null,
     currentReviewStatus: "idle",
     currentReviewError: null,
 };
