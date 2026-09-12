@@ -5,6 +5,7 @@ import trendingReducer from "@/features/trending/trendingSlice";
 import reviewsReducer from "@/features/reviews/reviewsSlice";
 import gamesReducer from "@/features/games/gamesSlice";
 import savedReducer from "@/features/saved/savedSlice";
+import searchReducer from "@/features/search/searchSlice";
 
 const store = configureStore({
     reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
         reviews: reviewsReducer,
         games: gamesReducer,
         saved: savedReducer,
+        search: searchReducer,
     },
 });
 

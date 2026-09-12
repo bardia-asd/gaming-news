@@ -8,9 +8,12 @@ import {
 } from "@/features/saved/savedSelectors";
 import { fetchSavedArticles } from "@/features/saved/savedSlice";
 
-import NewsCard, { NewsCardSkeleton } from "@/components/news/NewsCard";
 import { Skeleton } from "@/components/ui/skeleton";
+
+import NewsCard, { NewsCardSkeleton } from "@/components/news/NewsCard";
+
 import SavedNewsError from "./SavedNewsError";
+import SavedNewsEmpty from "./SavedNewsEmpty";
 
 // Render the user's saved news articles with loading, error, and empty states.
 const SavedNewsGrid = () => {
@@ -60,12 +63,15 @@ const SavedNewsGrid = () => {
             </span>
 
             {/* Render the saved articles in a responsive grid. */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
-                {/* Create a news card for each saved article. */}
-                {savedNews.map((news) => (
-                    <NewsCard key={news.id} article={news} />
-                ))}
-            </div>
+            {savedNews.length === 0 ? (
+                <SavedNewsEmpty />
+            ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
+                    {savedNews.map((news) => (
+                        <NewsCard key={news.id} article={news} />
+                    ))}
+                </div>
+            )}
         </div>
     );
 };

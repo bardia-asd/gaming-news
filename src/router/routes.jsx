@@ -3,8 +3,9 @@ import AppLayout from "@/components/layout/AppLayout";
 import Home from "@/pages/Home";
 import { News, ArticleDetail } from "@/pages/News";
 import { Games, GameDetail } from "@/pages/Games";
-import Saved from "@/pages/Saved";
 import { Reviews, ReviewDetail } from "@/pages/Reviews";
+import Saved from "@/pages/Saved";
+import Search from "@/pages/Search";
 
 export const router = createBrowserRouter([
     {
@@ -34,6 +35,7 @@ export const router = createBrowserRouter([
                 ],
             },
             { path: "saved", element: <Saved /> },
+            { path: "search", element: <Search /> },
         ],
     },
 ]);

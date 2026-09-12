@@ -1,30 +1,35 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 import { Bookmark, Search, X } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { setSearchQuery } from "@/features/search/searchSlice";
 
 import DesktopNav from "./DesktopNav";
-import MobileNav from "./MobileNav";
 import ThemeSwitch from "./ThemeSwitch";
 import HeaderSearch from "./HeaderSearch";
+import MobileNav from "./MobileNav";
+
+import { Button } from "@/components/ui/button";
 
 const Header = () => {
     // Controls the visibility of the search panel.
     const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-    // Stores the current search input value.
-    const [searchQuery, setSearchQuery] = useState("");
-
     // References the search area for outside-click detection.
     const searchRef = useRef(null);
 
     const location = useLocation();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    // Search query now lives in Redux, not local state.
+    const searchQuery = useSelector((state) => state.search.query);
 
     // Closes the search panel and clears the current search query.
     const closeSearch = () => {
         setIsSearchOpen(false);
-        setSearchQuery("");
+        dispatch(setSearchQuery(""));
     };
 
     // Close and reset the search when navigating to a different page.
@@ -51,9 +56,14 @@ const Header = () => {
         };
     }, [isSearchOpen]);
 
-    // Prevent the default form submission until search functionality is implemented.
+    // Navigate to the search page with the query in the URL.
     const handleSubmit = (e) => {
         e.preventDefault();
+        const trimmed = searchQuery.trim();
+        if (!trimmed) return;
+
+        navigate(`/search?q=${encodeURIComponent(trimmed)}`);
+        closeSearch();
     };
 
     return (
@@ -102,7 +112,9 @@ const Header = () => {
                             {isSearchOpen && (
                                 <HeaderSearch
                                     searchQuery={searchQuery}
-                                    setSearchQuery={setSearchQuery}
+                                    setSearchQuery={(value) =>
+                                        dispatch(setSearchQuery(value))
+                                    }
                                     onSubmit={handleSubmit}
                                 />
                             )}

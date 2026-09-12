@@ -18,7 +18,7 @@ const HeaderSearch = ({ searchQuery, setSearchQuery, onSubmit }) => {
                         <Input
                             id="search"
                             autoFocus
-                            placeholder="Search stories and games"
+                            placeholder="Search stories and games eg. Xbox"
                             className="bg-transparent border-none shadow-none focus-visible:ring-0 md:text-base"
                             aria-label="Search stories and games"
                             value={searchQuery}
