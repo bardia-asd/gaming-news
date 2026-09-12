@@ -1,6 +1,10 @@
 import { Link } from "react-router";
 import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 import { Bookmark } from "lucide-react";
+
+import { selectSavedNewsIds } from "@/features/saved/savedSelectors";
+import { toggleSaved } from "@/features/saved/savedSlice";
 
 import {
     Card,
@@ -13,12 +17,18 @@ import { Button } from "@/components/ui/button";
 import TagBadge from "@/components/articles/TagBadge";
 
 import { formatArticleDate } from "@/utils/formatter";
+import { cn } from "@/utils/utils";
 
 const NewsCard = ({ article }) => {
+    const dispatch = useDispatch();
+
+    const savedNewsIds = useSelector(selectSavedNewsIds);
+    const isSaved = savedNewsIds.includes(article.id);
+
     // Render a news article card with its image, tags, metadata, and save action.
     return (
         <article className="group relative">
-            <Card className="overflow-hidden hover:bg-primary-soft/10 hover:border-primary-border transition-colors">
+            <Card className="h-full overflow-hidden hover:bg-primary-soft/10 hover:border-primary-border transition-colors">
                 <Link to={`/news/${article.slug}`} className="block">
                     <div className="relative aspect-16/10 overflow-hidden">
                         <img
@@ -54,9 +64,16 @@ const NewsCard = ({ article }) => {
                 <Button
                     variant="outline"
                     size="icon"
-                    className="absolute top-3 right-3 size-8 hover:bg-background"
-                    aria-label="Save article">
-                    <Bookmark size={18} />
+                    className={cn(
+                        "absolute top-3 right-3 size-8 hover:bg-background",
+                        isSaved && "text-primary",
+                    )}
+                    aria-label={isSaved ? "Remove from saved" : "Save article"}
+                    onClick={() => dispatch(toggleSaved(article.id))}>
+                    <Bookmark
+                        size={18}
+                        fill={isSaved ? "currentColor" : "none"}
+                    />
                 </Button>
             </Card>
         </article>

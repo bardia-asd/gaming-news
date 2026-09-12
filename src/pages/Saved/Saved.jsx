@@ -1,4 +1,5 @@
 import PageHeader from "@/components/layout/PageHeader";
+import SavedNewsGrid from "./components/SavedNewsGrid";
 
 const Saved = () => {
     return (
@@ -10,7 +11,7 @@ const Saved = () => {
                 currentPage="Saved News"
             />
 
-            
+            <SavedNewsGrid />
         </>
     );
 };

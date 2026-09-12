@@ -13,7 +13,7 @@ import {
 // a page title, and a short description.
 const PageHeader = ({ eyebrow, title, description, currentPage }) => {
     return (
-        <div className="container max-w-7xl mx-auto px-4 sm:px-6 py-12">
+        <div className="container max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-6">
             {/* Navigation breadcrumbs for the current page. */}
             <Breadcrumbs>
                 <BreadcrumbsList className="mb-5">
