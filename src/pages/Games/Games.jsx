@@ -1,4 +1,6 @@
 import PageHeader from "@/components/layout/PageHeader";
+import GamesFilters from "./components/GamesFilters";
+import GamesList from "./components/GamesList";
 
 const Games = () => {
     return (
@@ -9,6 +11,10 @@ const Games = () => {
                 description="Discover games, upcoming releases, and what to play next."
                 currentPage="Games"
             />
+
+            <GamesFilters />
+
+            <GamesList />
         </>
     );
 };

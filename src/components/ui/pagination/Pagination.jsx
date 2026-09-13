@@ -88,7 +88,7 @@ PaginationItem.propTypes = {
 const PaginationLink = ({
     children,
     isActive,
-    size = "icon",
+    size = "default",
     className = "",
     ...props
 }) => {
@@ -122,6 +122,7 @@ const PaginationPrevious = ({ className = "", ...props }) => {
     return (
         <PaginationLink
             aria-label="Go to previous page"
+            size="icon"
             className={cn("gap-1", className)}
             {...props}>
             <ChevronLeft size={16} />
@@ -144,6 +145,7 @@ const PaginationNext = ({ className = "", ...props }) => {
     return (
         <PaginationLink
             aria-label="Go to next page"
+            size="icon"
             className={cn("gap-1", className)}
             {...props}>
             <ChevronRight size={16} />
