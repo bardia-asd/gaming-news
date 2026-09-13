@@ -3,21 +3,50 @@ import { supabase } from "@/services/supabase";
 
 const NEWS_SELECT = "*, article_tags(tags(*)), article_games(*)";
 
+export const SCORE_BUCKETS = {
+    all: { min: 0, max: 10 },
+    high: { min: 8.5, max: 10 },
+    mid: { min: 6.5, max: 8.4 },
+    low: { min: 0, max: 6.4 },
+};
+
 export const fetchReviews = createAsyncThunk(
     "reviews/fetchReviews",
-    async (limit = 8, { rejectWithValue }) => {
-        const { data, error } = await supabase
+    async (
+        { page = 1, pageSize = 5, search = "", scoreBucket = "all" } = {},
+        { rejectWithValue },
+    ) => {
+        const from = (page - 1) * pageSize;
+        const to = from + pageSize - 1;
+
+        let query = supabase
             .from("articles")
-            .select(NEWS_SELECT)
-            .eq("category", "review")
+            .select(NEWS_SELECT, { count: "exact" })
+            .eq("category", "review");
+
+        if (search.trim()) {
+            query = query.ilike("title", `%${search.trim()}%`);
+        }
+
+        const { min, max } = SCORE_BUCKETS[scoreBucket] ?? SCORE_BUCKETS.all;
+        if (scoreBucket !== "all") {
+            query = query.gte("review_score", min).lte("review_score", max);
+        }
+
+        const { data, error, count } = await query
             .order("published_at", { ascending: false })
-            .limit(limit);
+            .range(from, to);
 
         if (error) {
-            console.error("fetchReviews:", error);
             return rejectWithValue(error.message);
         }
-        return data;
+
+        return {
+            reviews: data,
+            totalCount: count,
+            page,
+            pageSize,
+        };
     },
 );
 
@@ -58,6 +87,13 @@ const initialState = {
     reviews: [],
     reviewsStatus: "idle",
     reviewsError: null,
+    reviewsTotal: 0,
+    reviewsPage: 1,
+    reviewsPageSize: 5,
+    reviewsFilter: {
+        search: "",
+        scoreBucket: "all",
+    },
 
     latestReviews: [],
     latestReviewsStatus: "idle",
@@ -77,6 +113,20 @@ const reviewsSlice = createSlice({
             state.currentReviewStatus = "idle";
             state.currentReviewError = null;
         },
+
+        setReviewsSearch: (state, action) => {
+            state.reviewsFilter.search = action.payload;
+            state.reviewsPage = 1;
+        },
+
+        setReviewsScoreBucket(state, action) {
+            state.reviewsFilter.scoreBucket = action.payload;
+            state.reviewsPage = 1;
+        },
+
+        setReviewsPage: (state, action) => {
+            state.reviewsPage = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -86,7 +136,10 @@ const reviewsSlice = createSlice({
             })
             .addCase(fetchReviews.fulfilled, (state, action) => {
                 state.reviewsStatus = "succeeded";
-                state.reviews = action.payload;
+                state.reviews = action.payload.reviews;
+                state.reviewsTotal = action.payload.totalCount;
+                state.reviewsPage = action.payload.page;
+                state.reviewsPageSize = action.payload.pageSize;
             })
             .addCase(fetchReviews.rejected, (state, action) => {
                 state.reviewsStatus = "failed";
@@ -121,5 +174,10 @@ const reviewsSlice = createSlice({
     },
 });
 
-export const { clearCurrentReview } = reviewsSlice.actions;
+export const {
+    clearCurrentReview,
+    setReviewsSearch,
+    setReviewsScoreBucket,
+    setReviewsPage,
+} = reviewsSlice.actions;
 export default reviewsSlice.reducer;

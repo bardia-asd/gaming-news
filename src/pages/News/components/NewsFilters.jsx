@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Search } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
 import {
     Select,
     SelectContent,

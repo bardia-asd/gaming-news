@@ -1,4 +1,6 @@
 import PageHeader from "@/components/layout/PageHeader";
+import ReviewsFilters from "./components/ReviewsFilters";
+import ReviewsList from "./components/ReviewsList";
 
 const Reviews = () => {
     return (
@@ -9,6 +11,10 @@ const Reviews = () => {
                 description="Our takes on the latest games worth your time."
                 currentPage="Reviews"
             />
+
+            <ReviewsFilters />
+
+            <ReviewsList />
         </>
     );
 };

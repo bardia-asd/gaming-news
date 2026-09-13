@@ -19,25 +19,12 @@ import ListPagination from "@/components/articles/ListPagination";
 // Render the paginated news archive with filtering, loading,
 // error, empty, and pagination states.
 const NewsList = () => {
-    // Retrieve the current news list from Redux.
     const newsList = useSelector(selectNewsList);
-
-    // Retrieve the current request status.
     const status = useSelector(selectNewsListStatus);
-
-    // Retrieve the request error.
     const error = useSelector(selectNewsListError);
-
-    // Retrieve the currently selected page.
-    const page = useSelector(selectNewsListPage);
-
-    // Retrieve the total number of articles matching the filters.
     const totalCount = useSelector(selectNewsListTotal);
-
-    // Retrieve the number of articles displayed per page.
+    const page = useSelector(selectNewsListPage);
     const pageSize = useSelector(selectNewsListPageSize);
-
-    // Retrieve the current search and tag filters.
     const { search, tag } = useSelector(selectNewsListFilters);
 
     // Get the function used to update the URL query parameters.
