@@ -18,7 +18,7 @@ const Input = forwardRef(({ type = "text", className = "", ...props }, ref) => {
             type={type}
             className={cn(
                 // Base input styles
-                "w-full h-9 border border-input rounded-md px-3 py-1",
+                "w-full h-9 border border-input rounded-md px-3 py-1 text-foreground",
 
                 // Typography and background
                 "text-base md:text-sm bg-transparent",
