@@ -1,4 +1,6 @@
 import PageHeader from "@/components/layout/PageHeader";
+import NewsFilters from "./components/NewsFilters";
+import NewsList from "./components/NewsList";
 
 const News = () => {
     return (
@@ -9,6 +11,10 @@ const News = () => {
                 description="The latest stories, updates, and announcements from gaming."
                 currentPage="News"
             />
+
+            <NewsFilters />
+
+            <NewsList />
         </>
     );
 };

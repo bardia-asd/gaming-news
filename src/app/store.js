@@ -6,6 +6,7 @@ import reviewsReducer from "@/features/reviews/reviewsSlice";
 import gamesReducer from "@/features/games/gamesSlice";
 import savedReducer from "@/features/saved/savedSlice";
 import searchReducer from "@/features/search/searchSlice";
+import tagsReducer from "@/features/tags/tagsSlice";
 
 const store = configureStore({
     reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
         games: gamesReducer,
         saved: savedReducer,
         search: searchReducer,
+        tags: tagsReducer,
     },
 });
 
